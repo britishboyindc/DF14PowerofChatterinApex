@@ -1,0 +1,16 @@
+<apex:page standardController="Project__c" showHeader="true" sidebar="true" extensions="ChatterOutputDemoController">
+	<apex:sectionHeader title="MyHeaderTitle" subtitle="MyHeaderSubTitle" />
+	<apex:form >
+	<apex:pageBlock title="MyPageBlockTitle">
+		<apex:pageBlockButtons location="top">
+		<apex:commandButton action="{!CreateSomeNoise}" value="Create Chatter Data"	/>
+		</apex:pageBlockButtons>
+			<apex:pageBlockSection title="MyPageBlockSectionTitle">
+				<apex:pageBlockSectionItem >
+				<apex:outputLabel value="DML Used"/>
+				<apex:outputText value="{!DMLUsed}"/>
+				</apex:pageBlockSectionItem>
+		</apex:pageBlockSection>
+	</apex:pageBlock>
+</apex:form>
+</apex:page>

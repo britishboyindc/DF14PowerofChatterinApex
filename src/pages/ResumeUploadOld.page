@@ -1,0 +1,44 @@
+<apex:page standardController="Project_Member__c" applyHtmlTag="false" showHeader="FALSE" docType="html" sidebar="false" standardStylesheets="false" extensions="ChatterInputDemoController2">
+
+
+<apex:includeScript value="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"/>
+<apex:includeScript value="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"/>
+<apex:includeScript value="https://code.jquery.com/ui/1.10.4/jquery-ui.js"/>
+
+<apex:outputField value="{!Project_Member__c.Project__c}"/>
+
+<apex:outputPanel id="processed">
+<apex:outputPanel rendered="{!bPosted}">
+   <script>
+    window.top.location='/{!Project_Member__c.Id}';
+   </script>
+</apex:outputPanel>
+</apex:outputPanel>
+
+        <style>
+            body {
+                padding-top: 50px;
+                padding-bottom: 20px;
+            }
+        </style>
+        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css"/>
+        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css"/>
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css"/>
+
+    <div class="container">
+       <apex:form >
+      
+        <div class="row">
+        <apex:outputLabel >Description</apex:outputLabel>
+        <apex:inputText style="width:200px;" value="{!sText}" />
+        
+        <apex:inputFile value="{!a.body}" fileName="{!a.Name}" contentType="{!a.ContentType}"></apex:inputFile>
+        <apex:commandButton action="{!insertfile}" value="Insert"/>
+        </div>
+        
+        </apex:form>
+    </div> 
+       
+
+
+</apex:page>

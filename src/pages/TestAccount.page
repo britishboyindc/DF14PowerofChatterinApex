@@ -1,0 +1,7 @@
+<apex:page standardController="Account">
+
+Field 1: {!Account.Test_Encryption__c}
+Field 2<apex:outPutField value="{!Account.Test_Encryption__c}"/>
+
+
+</apex:page>

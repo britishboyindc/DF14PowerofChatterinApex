@@ -1,0 +1,107 @@
+<apex:page standardController="Project__c" applyHtmlTag="false" showHeader="FALSE" docType="html" sidebar="false" standardStylesheets="false" extensions="ChatterOutputDemoController">
+
+
+
+    <head>
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+        <title></title>
+        <meta name="description" content="" />
+        <meta name="viewport" content="width=device-width"/>
+
+        
+
+<apex:includeScript value="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"/>
+<apex:includeScript value="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"/>
+<apex:includeScript value="https://code.jquery.com/ui/1.10.4/jquery-ui.js"/>
+
+        <style>
+            body {
+                padding-top: 50px;
+                padding-bottom: 20px;
+            }
+        </style>
+        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css"/>
+        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css"/>
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css"/>
+
+    </head>
+    
+    <apex:sectionHeader title="Feed Search" subtitle="Search Feed for {!Project__c.Name}"/>
+        
+    <div class="container">
+       <apex:form >
+      
+            <div class="row">
+            <apex:outputLabel >Search Word</apex:outputLabel>
+            <apex:inputText value="{!qsearch}" />
+            <apex:commandButton action="{!getChatterOutputbySearch}" value="Search"/>
+              <apex:commandButton action="{!cancel}" value="Return to Project"/>
+            </div>
+            <div class="row">
+            <div class="col-md-6">
+                <apex:repeat value="{!fiw}" var="fiwr">
+                    <div class="media">
+                         <div class="media-body">
+                             Author: {!fiwr.fi.actor.Name} <br/>
+                            
+                             <apex:outputPanel rendered="{!fiwr.sourceca != NULL}">
+                             <h4 class="media-heading">
+                            
+                             <apex:outputText value="{!fiwr.sourceca.Description}"/>
+                             <apex:outputLink target="_blank" value="/{!fiwr.sourceca.Id}"><apex:image url="{!fiwr.sourceca.renditionUrl240By180}"/></apex:outputLink><br/> 
+                             <apex:outputLink value="{!fiwr.sourceca.downloadUrl}">{!fiwr.sourceca.title}</apex:outputLink>
+                          
+                             </h4>
+                             </apex:outputPanel>
+                            
+                            
+                            <apex:repeat value="{!fiwr.fe.body.messageSegments}" var="segment">
+                                <apex:outputPanel layout="none" rendered="{!segment.type == TextSegmentType}">
+                                    {!segment.text}
+                                </apex:outputPanel>
+                                <apex:outputPanel layout="none" rendered="{!segment.type == MentionSegmentType}">
+                                    <a href="/{!segment['record'].id}">@{!segment['record'].name}</a>
+                                </apex:outputPanel>
+                                </apex:repeat>
+                                
+                             <h4 class="media-heading"> Comments</h4>    
+                                        <apex:repeat value="{!fiwr.fecomments.items}" var="fec">
+                                        <div class="row">
+                                         <div class="col-md-12">
+                                          
+                                            Comment By: {!fec.user.firstName} {!fec.user.lastName}
+                                             <apex:repeat value="{!fec.body.messageSegments}" var="fecsegment">
+                                                 <apex:outputPanel layout="none" rendered="{!fecsegment.type == TextSegmentType}">
+                                                        {!fecsegment.text}
+                                                    </apex:outputPanel>
+                                                    <apex:outputPanel layout="none" rendered="{!fecsegment.type == MentionSegmentType}">
+                                                        <a href="/{!fecsegment['record'].id}">@{!fecsegment['record'].name}</a>
+                                                    </apex:outputPanel>
+                                             </apex:repeat> 
+                                        </div>
+                                        </div>
+                                        </apex:repeat>
+                                            
+                            
+                                
+                            
+                           
+                        </div>
+                    </div>
+                </apex:repeat>
+            </div>
+        </div>
+      <hr/>
+
+      <footer>
+        <p>&copy; Appirio 2013</p>
+      </footer>
+    
+           
+       </apex:form>
+    </div> 
+       
+
+
+</apex:page>
